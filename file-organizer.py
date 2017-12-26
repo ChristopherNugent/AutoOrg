@@ -28,7 +28,10 @@ def main():
     target_dir = expanduser('~') + '/Documents/'
     file_names = list_files(target_dir)
     filtered_matches = filter_files('^\w{3}\d{3}', file_names)
-    print("Found files: " + ', '.join([m.string for m in filtered_matches]))
+    if filtered_matches:
+        print("Found files: " + ', '.join([m.string for m in filtered_matches]))
+    else:
+        print("No matching files found.")
     for f in filtered_matches:
         print(
             'Moving ' +
@@ -39,7 +42,7 @@ def main():
             target_dir +
             f.group() +
             '/')
-        move_file(f.string, target_dir, target_dir + f.group() + '/')
+        move_file(f.string, target_dir, target_dir + f.group().lower() + '/')
 
 
 if __name__ == '__main__':
