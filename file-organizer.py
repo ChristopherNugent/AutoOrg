@@ -2,6 +2,7 @@ from os import listdir, makedirs
 from os.path import isfile, expanduser, join
 from shutil import move
 from datetime import datetime
+from sys import argv
 import re
 
 
@@ -41,4 +42,8 @@ def main(pattern):
 
 
 if __name__ == '__main__':
-    main('^\w{3}\d{3}')
+    try:
+        pattern = argv[1]
+        main(pattern)
+    except IndexError:
+        print('Error: Pattern not specified. Exiting...')
