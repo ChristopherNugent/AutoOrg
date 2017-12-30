@@ -24,7 +24,8 @@ def move_file(filename, src, dst):
 
 def main(pattern):
     now = datetime.now()
-    print(now.strftime("%d-%m-%Y %H:%M:%S | Running file organizer..."))
+    print(now.strftime(
+        "%d-%m-%Y %H:%M:%S | Running file organizer with pattern " + pattern))
     src = expanduser('~') + '/Documents/'
     file_names = list_files(src)
     filtered_matches = filter_files(pattern, file_names)
@@ -35,12 +36,7 @@ def main(pattern):
         print("No matching files found.")
     for f in filtered_matches:
         dst = join(src, f.group().lower())
-        print(
-            'Moving ' +
-            f.string +
-            ' from ' +
-            src +
-            ' to ' + dst)
+        print('Moving ' + f.string + ' from ' + src + ' to ' + dst)
         move_file(f.string, src, dst)
 
 
