@@ -20,7 +20,11 @@ def filter_files(pattern, file_names):
 def move_file(filename, src, dst):
     """A file move, of filename in src to dst, creating dst if needed"""
     makedirs(dst, exist_ok=True)
-    move(join(src, filename), join(dst, filename))
+    if not isfile(join(dst, filename)):
+        print('Moving ' + filename + ' from ' + src + ' to ' + dst)
+        move(join(src, filename), join(dst, filename))
+    else:
+        print(join(dst, filename) + " already exists, not moving to avoid overwrite...")
 
 
 def main(pattern):
@@ -37,7 +41,7 @@ def main(pattern):
         print("No matching files found.")
     for f in filtered_matches:
         dst = join(src, f.group().lower())
-        print('Moving ' + f.string + ' from ' + src + ' to ' + dst)
+
         move_file(f.string, src, dst)
 
 
