@@ -2,11 +2,8 @@ from os import listdir, makedirs
 from os.path import isfile, expanduser, join
 from shutil import move
 from datetime import datetime
-from sys import argv
 import re
 import argparse
-
-
 
 
 def list_files(tdir):
