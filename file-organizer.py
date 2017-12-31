@@ -8,7 +8,7 @@ import argparse
 
 def list_files(tdir):
     """Returns files in the passed directory, ignoring folders"""
-    return [f for f in listdir(tdir) if isfile(tdir + f)]
+    return [f for f in listdir(tdir) if isfile(join(tdir, f))]
 
 
 def filter_files(pattern, file_names):
@@ -38,8 +38,8 @@ def main(pattern, overwrite):
     file_names = list_files(src)
     filtered_matches = filter_files(pattern, file_names)
     if filtered_matches:
-        print("Found files: " +
-              ', '.join([m.string for m in filtered_matches]))
+        print("Found files: {}".format(
+            ', '.join([m.string for m in filtered_matches])))
     else:
         print("No matching files found.")
     for f in filtered_matches:
