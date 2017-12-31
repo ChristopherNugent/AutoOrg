@@ -4,5 +4,5 @@ files based on naming conventions that can be defined by regular expressions.
 
 # Usage
 `python3 file-organizer.py [-o] pattern`
-+ pattern is recognized in filenames in ~/Documents
++ pattern is recognized in filenames in ~/Documents. The matched segment is used as the destination folder.
 + -o enables overwriting in the destination folder.
