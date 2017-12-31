@@ -18,8 +18,9 @@ def filter_files(pattern, file_names):
     return [p.match(f) for f in file_names if p.match(f) is not None]
 
 
-def move_file(filename, src, dst, overwrite):
-    """A file move, of filename in src to dst, creating dst if needed"""
+def move_file(filename, src, dst, overwrite=False):
+    """A file move, of filename in src to dst, creating dst if needed.
+    Overwrites the file in the destination if overwrite is true"""
     os.makedirs(dst, exist_ok=True)
     if overwrite or not os.path.isfile(os.path.join(dst, filename)):
         print('Moving ' + filename + ' from ' + src + ' to ' + dst)
