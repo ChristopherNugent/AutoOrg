@@ -1,5 +1,6 @@
 from os import listdir, makedirs
-from os.path import isfile, expanduser, join
+from os.path import isfile, expanduser, join as pathjoin
+import os.path
 from shutil import move
 from datetime import datetime
 import re
@@ -8,7 +9,7 @@ import argparse
 
 def list_files(tdir):
     """Returns files in the passed directory, ignoring folders"""
-    return [f for f in listdir(tdir) if isfile(join(tdir, f))]
+    return [f for f in listdir(tdir) if os.path.isfile(pathjoin(tdir, f))]
 
 
 def filter_files(pattern, file_names):
@@ -20,11 +21,11 @@ def filter_files(pattern, file_names):
 def move_file(filename, src, dst, overwrite):
     """A file move, of filename in src to dst, creating dst if needed"""
     makedirs(dst, exist_ok=True)
-    if overwrite or not isfile(join(dst, filename)):
+    if overwrite or not isfile(pathjoin(dst, filename)):
         print('Moving ' + filename + ' from ' + src + ' to ' + dst)
-        move(join(src, filename), join(dst, filename))
+        move(pathjoin(src, filename), pathjoin(dst, filename))
     else:
-        print(join(dst, filename) +
+        print(pathjoin(dst, filename) +
               " already exists, not moving to avoid overwrite...")
 
 
@@ -43,7 +44,7 @@ def main(pattern, overwrite):
     else:
         print("No matching files found.")
     for f in filtered_matches:
-        dst = join(src, f.group().lower())
+        dst = pathjoin(src, f.group().lower())
         move_file(f.string, src, dst, overwrite)
 
 
