@@ -1,7 +1,6 @@
-from os import listdir, makedirs
-from os.path import isfile, expanduser, join as pathjoin
+import os
 import os.path
-from shutil import move
+import shutil
 from datetime import datetime
 import re
 import argparse
@@ -9,7 +8,8 @@ import argparse
 
 def list_files(tdir):
     """Returns files in the passed directory, ignoring folders"""
-    return [f for f in listdir(tdir) if os.path.isfile(pathjoin(tdir, f))]
+    return [f for f in os.listdir(tdir)
+            if os.path.isfile(os.path.join(tdir, f))]
 
 
 def filter_files(pattern, file_names):
@@ -20,12 +20,12 @@ def filter_files(pattern, file_names):
 
 def move_file(filename, src, dst, overwrite):
     """A file move, of filename in src to dst, creating dst if needed"""
-    makedirs(dst, exist_ok=True)
-    if overwrite or not isfile(pathjoin(dst, filename)):
+    os.makedirs(dst, exist_ok=True)
+    if overwrite or not os.path.isfile(os.path.join(dst, filename)):
         print('Moving ' + filename + ' from ' + src + ' to ' + dst)
-        move(pathjoin(src, filename), pathjoin(dst, filename))
+        shutil.move(os.path.join(src, filename), os.path.join(dst, filename))
     else:
-        print(pathjoin(dst, filename) +
+        print(os.path.join(dst, filename) +
               " already exists, not moving to avoid overwrite...")
 
 
@@ -35,7 +35,7 @@ def main(pattern, overwrite):
         "%d-%m-%Y %H:%M:%S | Running file organizer with pattern " + pattern))
     if overwrite:
         print("Overwrite set to True")
-    src = expanduser('~') + '/Documents/'
+    src = os.path.expanduser('~') + '/Documents/'
     file_names = list_files(src)
     filtered_matches = filter_files(pattern, file_names)
     if filtered_matches:
@@ -44,7 +44,7 @@ def main(pattern, overwrite):
     else:
         print("No matching files found.")
     for f in filtered_matches:
-        dst = pathjoin(src, f.group().lower())
+        dst = os.path.join(src, f.group().lower())
         move_file(f.string, src, dst, overwrite)
 
 
