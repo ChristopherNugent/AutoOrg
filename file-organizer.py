@@ -1,8 +1,8 @@
-import os
-import os.path
-import shutil
-from datetime import datetime
-import re
+import os                           # For listdir, makedirs
+import os.path                      # For checking files and path joins
+import shutil                       # For shutil.move
+from datetime import datetime       # For logging
+import re                           # For regex
 import argparse
 
 
@@ -41,7 +41,7 @@ def main(pattern, overwrite):
     filtered_matches = filter_files(pattern, file_names)
     if filtered_matches:
         print("Found files: {}".format(
-            ', '.join([m.string for m in filtered_matches])))
+              ', '.join([m.string for m in filtered_matches])))
     else:
         print("No matching files found.")
     for f in filtered_matches:
