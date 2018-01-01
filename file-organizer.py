@@ -1,3 +1,15 @@
+"""
+AutoOrg | Created by Christopher Nugent | December, 2017
+
+Positional arguments:
+
+pattern - The regex pattern used to get destination from filenames
+
+Optional arguments:
+
+[-o] - Overwrite files in destination directory
+[-h] - Show help page
+"""
 import os                           # For listdir, makedirs
 import os.path                      # For checking files and path joins
 import shutil                       # For shutil.move
