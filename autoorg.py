@@ -48,12 +48,11 @@ def main(pattern, overwrite):
         "%d-%m-%Y %H:%M:%S | Running file organizer with pattern " + pattern))
     if overwrite:
         print("Overwrite set to True")
-    src = os.path.expanduser('~') + '/Documents/'
+    src = os.path.join(os.path.expanduser('~'), 'Documents')
     file_names = list_files(src)
     filtered_matches = filter_files(pattern, file_names)
     if filtered_matches:
-        print("Found files: {}".format(
-              ', '.join([m.string for m in filtered_matches])))
+        print("Found files: {}".format(', '.join([m.string for m in filtered_matches])))
     else:
         print("No matching files found.")
     for f in filtered_matches:
